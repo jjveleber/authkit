@@ -112,4 +112,39 @@
   - Integration tests: 24 tests (real DB)
   - Total: 78 tests passing
 
-### Next: Phase 5 - OAuth2 Integration (Google + GitHub)
+## Phase 5: OAuth2 Integration (Google + GitHub) ✅ COMPLETE
+**Time:** ~40 minutes
+
+### Completed:
+- ✅ config/passport.ts:
+  - Google OAuth2 strategy (passport-google-oauth20)
+  - GitHub OAuth2 strategy (passport-github2)
+  - findOrCreateOAuthUser() - lookup by oauth_provider + oauth_id
+  - New users created with email_verified=true
+  - Uses env vars: GOOGLE_CLIENT_ID/SECRET, GITHUB_CLIENT_ID/SECRET (optional)
+- ✅ controllers/oauthController.ts:
+  - googleCallback() - handle Google OAuth, generate JWT tokens
+  - githubCallback() - handle GitHub OAuth, generate JWT tokens
+  - Error handling for OAuth failures
+- ✅ routes/oauth.ts:
+  - GET /oauth/google - initiate Google OAuth flow
+  - GET /oauth/google/callback - handle callback, return JSON tokens
+  - GET /oauth/github - initiate GitHub OAuth flow
+  - GET /oauth/github/callback - handle callback, return JSON tokens
+  - GET /oauth/error - OAuth error fallback
+- ✅ app.ts updates:
+  - Initialize passport (session-less, JWT-based)
+  - Mount /oauth routes
+- ✅ TypeScript fixes:
+  - Extended Express.User interface for both JWT and OAuth users
+  - Handled Passport's User type declaration
+- ✅ Integration tests (12 tests, all passing):
+  - New user creation via OAuth (Google + GitHub)
+  - Existing user lookup via OAuth
+  - email_verified set to true for OAuth users
+  - No password_hash for OAuth users
+  - User differentiation by oauth_provider + oauth_id
+  - Error handling (missing email, duplicate emails)
+- ✅ Test coverage: All 102 tests passing (90 previous + 12 OAuth)
+
+### Next: Phase 6 - Final polish (README, Docker, documentation)

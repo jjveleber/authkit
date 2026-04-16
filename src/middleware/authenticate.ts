@@ -1,15 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import tokenService from '../services/tokenService.js';
 import { AuthErrors } from '../types/errors.js';
-import type { AccessTokenPayload } from '../types/auth.js';
 
 /**
- * Extend Express Request to include authenticated user
+ * Extend Express namespace to support authenticated users
+ * Passport already defines Express.User, we just need to populate it
  */
 declare global {
   namespace Express {
-    interface Request {
-      user?: AccessTokenPayload;
+    // Passport defines an empty User interface, we extend it here
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface User {
+      // This can be AccessTokenPayload (JWT) or UserRow (OAuth)
+      // We use structural typing - any object with these properties
+      id?: string;
+      email?: string;
+      sub?: string;
+      [key: string]: any;
     }
   }
 }

@@ -8,8 +8,8 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(32),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
-  GITHUB_CLIENT_ID: z.string().optional(),
-  GITHUB_CLIENT_SECRET: z.string().optional(),
+  GITHUB_CLIENT_ID: z.string().optional().default(''),
+  GITHUB_CLIENT_SECRET: z.string().optional().default(''),
   PORT: z.string().default('3000'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 });
