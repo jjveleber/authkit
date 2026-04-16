@@ -1,8 +1,21 @@
+# Python (code search tools)
 .venv/
 __pycache__/
 chroma_db/
 .watch_index.log
 .watch_index.pid
 .search_server.pid
+
+# Claude Code
 .claude/settings.local.json
 .claude/CLAUDE.md
+
+# Node.js (AuthKit)
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+*.log
+coverage/
+.DS_Store
