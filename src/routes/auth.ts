@@ -11,7 +11,7 @@ const router = Router();
  * Disabled in test environment
  */
 const loginLimiter = process.env.NODE_ENV === 'test'
-  ? (req: any, res: any, next: any) => next()
+  ? (_req: any, _res: any, next: any) => next()
   : rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
       max: 5,
@@ -26,7 +26,7 @@ const loginLimiter = process.env.NODE_ENV === 'test'
  * Disabled in test environment
  */
 const registerLimiter = process.env.NODE_ENV === 'test'
-  ? (req: any, res: any, next: any) => next()
+  ? (_req: any, _res: any, next: any) => next()
   : rateLimit({
       windowMs: 60 * 60 * 1000, // 1 hour
       max: 3,

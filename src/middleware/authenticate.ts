@@ -21,7 +21,7 @@ declare global {
  */
 export function authenticateJWT(
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ): void {
   try {

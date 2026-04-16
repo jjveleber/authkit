@@ -3,7 +3,7 @@ import pool from '../config/database.js';
 import tokenService from '../services/tokenService.js';
 import passwordService from '../services/passwordService.js';
 import { RegisterInput, LoginInput } from '../middleware/validate.js';
-import { AuthError, AuthErrors } from '../types/errors.js';
+import { AuthErrors } from '../types/errors.js';
 import type { AuthResponse } from '../types/auth.js';
 
 /**

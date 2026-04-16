@@ -21,7 +21,7 @@ function getPool(): Pool {
         console.log('Database connected');
       });
 
-      poolInstance.on('error', (err) => {
+      poolInstance.on('error', (err: Error) => {
         console.error('Unexpected database error:', err);
         process.exit(-1);
       });
@@ -32,15 +32,16 @@ function getPool(): Pool {
 
 // Create a wrapper object with explicit methods to make it mockable
 const pool = {
-  query: <R extends QueryResultRow = any, I extends any[] = any[]>(
-    ...args: Parameters<Pool['query']>
-  ): Promise<QueryResult<R>> => {
-    return getPool().query(...args);
+  query<R extends QueryResultRow = any>(
+    text: string,
+    values?: any[]
+  ): Promise<QueryResult<R>> {
+    return getPool().query<R>(text, values);
   },
-  end: (): Promise<void> => {
+  end(): Promise<void> {
     return getPool().end();
   },
-  on: (...args: Parameters<Pool['on']>): Pool => {
+  on(...args: Parameters<Pool['on']>): Pool {
     return getPool().on(...args);
   },
 };

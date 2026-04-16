@@ -9,9 +9,9 @@ import env from '../config/env.js';
  */
 export function errorHandler(
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void {
   // Handle known authentication errors
   if (err instanceof AuthError) {
