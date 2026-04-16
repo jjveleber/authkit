@@ -10,7 +10,12 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "keywords": ["auth", "jwt", "oauth", "authentication"],
+  "keywords": [
+    "auth",
+    "jwt",
+    "oauth",
+    "authentication"
+  ],
   "author": "",
   "license": "MIT",
   "type": "module",
@@ -31,6 +36,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@testcontainers/postgresql": "^11.14.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/jest": "^30.0.0",

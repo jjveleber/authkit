@@ -49,11 +49,12 @@ class TokenService {
       const decoded = jwt.verify(token, env.JWT_SECRET) as AccessTokenPayload;
       return decoded;
     } catch (error) {
-      if (error instanceof jwt.JsonWebTokenError) {
-        throw new Error('Invalid token');
-      }
+      // Check TokenExpiredError first since it's a subclass of JsonWebTokenError
       if (error instanceof jwt.TokenExpiredError) {
         throw new Error('Token expired');
+      }
+      if (error instanceof jwt.JsonWebTokenError) {
+        throw new Error('Invalid token');
       }
       throw error;
     }

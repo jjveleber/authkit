@@ -45,3 +45,71 @@
 - ✅ src/config/env.ts (Zod validation for env vars)
 
 ### Next: Phase 3 - Auth Core Services
+
+## Phase 3: Auth Core Services + Unit Tests ✅ COMPLETE
+**Time:** ~25 minutes
+
+### Completed:
+- ✅ tokenService.ts:
+  - generateAccessToken() → JWT (15min expiry)
+  - generateRefreshToken() → UUID stored in DB (7 days)
+  - verifyAccessToken() → decode JWT
+  - verifyRefreshToken() → validate + check expiry
+  - revokeRefreshToken() → delete from DB
+- ✅ passwordService.ts:
+  - hash() → bcrypt (10 rounds)
+  - verify() → compare password with hash
+- ✅ validate.ts middleware with Zod schemas:
+  - registerSchema (email, password strength, name)
+  - loginSchema (email, password)
+- ✅ Unit tests: 54 tests, all passing
+  - Mocked DB queries
+  - Token generation/verification/expiry
+  - Password hashing/verification
+  - Validation schemas (valid + invalid inputs)
+- ✅ Committed: 49a4dc7
+
+### Next: Phase 4 - Auth Routes + Integration Tests
+
+## Phase 4: Auth Routes + Integration Tests ✅ COMPLETE
+**Time:** ~45 minutes
+
+### Completed:
+- ✅ types/errors.ts:
+  - AuthError class with status codes
+  - Factory methods for common errors (401, 403, 404, 409, 400)
+- ✅ controllers/authController.ts:
+  - register() - hash password, insert user, generate tokens
+  - login() - verify credentials, generate tokens
+  - refresh() - validate refresh token, generate new access token
+  - Error handling (duplicate email, invalid credentials, expired tokens)
+- ✅ routes/auth.ts:
+  - POST /auth/register (with validation + rate limiting)
+  - POST /auth/login (with validation + rate limiting)
+  - POST /auth/refresh
+  - Rate limiting: 3 registration attempts/hour, 5 login attempts/15min
+- ✅ middleware/authenticate.ts:
+  - JWT verification middleware
+  - Extract Bearer token from Authorization header
+  - Attach decoded user to req.user
+- ✅ middleware/errorHandler.ts:
+  - Global error handler
+  - Proper status codes + JSON errors
+  - No stack traces in production
+- ✅ app.ts + index.ts:
+  - Express app setup with CORS, JSON parsing
+  - Health check endpoint
+  - Graceful shutdown handlers
+- ✅ Integration tests (testcontainers + PostgreSQL):
+  - 24 integration tests, all passing
+  - Full request→response cycle testing
+  - Real PostgreSQL database (testcontainers)
+  - Register, login, refresh flows
+  - JWT authentication middleware
+  - Error cases (duplicate email, invalid password, expired tokens)
+- ✅ Test coverage: 77% statements, 67% branches, 73% functions
+  - Unit tests: 54 tests (mocked DB)
+  - Integration tests: 24 tests (real DB)
+  - Total: 78 tests passing
+
+### Next: Phase 5 - OAuth2 Integration (Google + GitHub)

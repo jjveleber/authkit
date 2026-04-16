@@ -43,11 +43,13 @@ export function validateRequest<T extends z.ZodSchema>(schema: T) {
       next();
     } catch (error) {
       if (error instanceof z.ZodError) {
+        // Zod v4 has issues property instead of errors
+        const issues = (error as any).issues || [];
         res.status(400).json({
           error: 'Validation failed',
-          details: error.errors.map(err => ({
-            path: err.path.join('.'),
-            message: err.message,
+          details: issues.map((err: any) => ({
+            path: Array.isArray(err.path) ? err.path.join('.') : String(err.path || ''),
+            message: err.message || 'Validation error',
           })),
         });
       } else {
